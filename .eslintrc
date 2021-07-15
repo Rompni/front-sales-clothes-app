@@ -1,3 +1,35 @@
 {
-  "extends": ["next", "next/core-web-vitals"]
-}
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true,
+    "mocha": true
+  },
+  "extends": [
+    "next",
+    "next/core-web-vitals",
+    "plugin:react/recommended",
+    "standard",
+    "plugin:react/recommended",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended", // TypeScript rules
+    "plugin:react/recommended", // React rules
+    "plugin:react-hooks/recommended", // React hooks rules
+    "plugin:jsx-a11y/recommended", // Accessibility rules
+    "prettier/@typescript-eslint", // Prettier plugin
+    "plugin:prettier/recommended"
+    // Prettier recommended rules
+  ],
+  "parser": "@typescript-eslint/parser",
+  "rules": {
+      "react/prop-types": "off",
+      "react/react-in-jsx-scope": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "error"
+      ],
+      "@typescript-eslint/no-explicit-any": "off",
+      "jsx-a11y/click-events-have-key-events": "off",
+      "jsx-a11y/no-static-element-interactions": "off",
+      "prettier/prettier": ["error", {}, { "usePrettierrc": true }] // Includes .prettierrc.js rules
+    }
+  }
