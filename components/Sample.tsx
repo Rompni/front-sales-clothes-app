@@ -16,7 +16,6 @@ const Sample: FunctionComponent = (): JSX.Element => {
     <>
       <button onClick={handleLang}>{t('change')}</button>
       {t('hello')}
-      <div></div>
     </>
   );
 };
