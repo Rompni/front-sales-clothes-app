@@ -1,9 +1,18 @@
-import '../styles/globals.css';
+import '../styles/globals.scss';
 import App, { AppContext, AppProps } from 'next/app';
 import { appWithTranslation } from '../i18n';
+import Head from '../components/common/Head';
+import Layout from '../components/common/Layout';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <Head />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </>
+  );
 }
 
 MyApp.getInitialProps = async (appContext: AppContext) => ({
