@@ -1,12 +1,17 @@
 import styles from '../styles/Home.module.scss';
 import { withTranslation } from '../i18n';
+import Sample from '../components/Sample';
 
-const IndexPage = (): JSX.Element => {
-  return <div className={styles.container}>Index Page</div>;
+const Index = (): JSX.Element => {
+  return (
+    <div className={styles.container}>
+      <Sample />
+    </div>
+  );
 };
 
-IndexPage.getInitialProps = async () => ({
+Index.getInitialProps = async () => ({
   namespacesRequired: ['common'],
 });
 
-export default withTranslation('common')(IndexPage);
+export default withTranslation('common')(Index);

@@ -12,10 +12,10 @@ interface Props {
 
 const Searchbar: FunctionComponent<Props> = ({ className, id = 'search' }) => {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
-    router.prefetch('/search');
+    router.prefetch(`${i18n.language}/search`);
   }, []);
 
   const handleKeyUp = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -26,28 +26,13 @@ const Searchbar: FunctionComponent<Props> = ({ className, id = 'search' }) => {
 
       router.push(
         {
-          pathname: `/search`,
+          pathname: `${i18n.language}/search`,
           query: q ? { q } : {},
         },
         undefined,
         { shallow: true }
       );
     }
-  };
-
-  const handleClick = (e: MouseEvent) => {
-    e.preventDefault();
-
-    const q = router.query.q;
-
-    router.push(
-      {
-        pathname: `/search`,
-        query: q ? { q } : {},
-      },
-      undefined,
-      { shallow: true }
-    );
   };
 
   return useMemo(
