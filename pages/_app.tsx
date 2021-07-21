@@ -1,4 +1,5 @@
 import '../styles/globals.scss';
+import "../styles/Login/Estilos.css";
 import App, { AppContext, AppProps } from 'next/app';
 import { appWithTranslation } from '../i18n';
 import Head from '../components/common/Head';
