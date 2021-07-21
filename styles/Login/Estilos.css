@@ -8,6 +8,7 @@
     --image-bg:  #eadbff ;
 }
 
+
 body {
     height: 100vh;
     font-family: 'Poppins', sans-serif;
@@ -39,6 +40,10 @@ body {
     width: 50%;
     background-color: var(--image-bg);
     box-sizing: border-box;
+}
+
+.logoTel{
+    padding-top: 100px;
 }
 
 .title {
