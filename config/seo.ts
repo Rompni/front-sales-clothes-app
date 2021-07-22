@@ -1,13 +1,13 @@
 export const config = {
-  title: 'Sales Store',
-  titleTemplate: '%s - Sales Store',
-  description: 'Sales Store Commerce',
+  title: 'Zukka Store',
+  titleTemplate: '%s - Zukka Store',
+  description: 'Zukka Store Commerce',
   openGraph: {
-    title: 'Sales Store',
-    description: 'Sales Store Commerce',
+    title: 'Zukka Store',
+    description: 'Zukka Store Commerce',
     type: 'website',
     locale: 'es',
     url: '',
-    site_name: 'Sales Store',
+    site_name: 'Zukka Store',
   },
 };

@@ -4,6 +4,7 @@ import LoadingDots from '../ui/LoadingDots';
 import { FunctionComponent } from 'react';
 import { useRouter } from 'next/router';
 import cn from 'classnames';
+import Footer from './Footer';
 
 const Loading = () => (
   <div className="w-80 h-80 flex items-center text-center justify-center p-3">
@@ -17,6 +18,7 @@ const Layout: FunctionComponent = ({ children }): JSX.Element => {
     <div className={cn(s.root)}>
       <Navbar />
       <main className="fit">{children}</main>
+      <Footer />
     </div>
   );
 };
