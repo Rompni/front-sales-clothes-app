@@ -23,7 +23,7 @@ const Navbar: FunctionComponent = (): JSX.Element => {
 
   // these are provisional
   const links: navLink[] = [
-    { href: `/${i18n.language}/all`, label: 'All' },
+    { href: `/${i18n.language}`, label: 'All' },
     { href: `/${i18n.language}/search`, label: 'Search' },
   ];
 
