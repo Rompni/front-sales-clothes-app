@@ -1,10 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, FunctionComponent, useState } from 'react';
-
-interface IModalCart {
-  isOpen: boolean;
-  closeModal: () => any;
-}
+import { Fragment, FunctionComponent } from 'react';
+import { IModalCart } from '../../interfaces/common';
 
 export const ModalCart: FunctionComponent<IModalCart> = ({
   isOpen,

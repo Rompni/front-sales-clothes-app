@@ -1,12 +1,15 @@
 import styles from '../styles/Home.module.scss';
 import { withTranslation } from '../i18n';
 import Sample from '../components/Sample';
+import Layout from '../components/common/Layout';
 
-const Index = (): JSX.Element => {
+const Index = ({ t }: any): JSX.Element => {
   return (
-    <div className={styles.container}>
-      <Sample />
-    </div>
+    <Layout title={t('home')}>
+      <div className={styles.container}>
+        <Sample />
+      </div>
+    </Layout>
   );
 };
 

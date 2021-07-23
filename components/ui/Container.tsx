@@ -1,14 +1,8 @@
 import cn from 'classnames';
 import { ComponentType, FunctionComponent, HTMLAttributes } from 'react';
+import { IContainerProps } from '../../interfaces/ui';
 
-interface ContainerProps {
-  className?: string;
-  children?: any;
-  el?: HTMLElement;
-  clean?: boolean;
-}
-
-const Container: FunctionComponent<ContainerProps> = ({
+const Container: FunctionComponent<IContainerProps> = ({
   children,
   className,
   el = 'div',

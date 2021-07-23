@@ -1,93 +1,123 @@
-import {
-  useEffect,
-  useState,
-  useCallback,
-  FunctionComponent,
-  SyntheticEvent,
-} from 'react';
-import { validate } from 'email-validator';
+import { useState, FunctionComponent } from 'react';
 import Logo from '../ui/Logo';
 import Button from '../ui/Button';
 import Input from '../ui/Input';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
+import { useForm } from 'react-hook-form';
+import { ILoginData } from '../../interfaces/auth';
+import { useRouter } from 'next/router';
+import firebase from '../../firebase/config';
+import cookie from 'cookie';
 
 const LoginForm: FunctionComponent = (): JSX.Element => {
-  // Form State
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState('');
-  const [dirty, setDirty] = useState(false);
-  const [disabled, setDisabled] = useState(false);
-  const { i18n } = useTranslation();
+  const [message] = useState(false);
+  const { i18n, t } = useTranslation();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [loginError, setLoginError] = useState<boolean>(false);
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    reset,
+  } = useForm<ILoginData>();
 
-  const handleLogin = async (e: SyntheticEvent<EventTarget>) => {
-    e.preventDefault();
+  const router = useRouter();
 
-    if (!dirty && !disabled) {
-      setDirty(true);
-      handleValidation();
-    }
-
-    try {
-      setLoading(true);
-      setMessage('');
-      /* validate sesion */
-      setLoading(false);
-    } catch ({ errors }) {
-      setMessage(errors[0].message);
-      setLoading(false);
+  const onSubmitLogin = async (data: ILoginData, e: any) => {
+    if (firebase) {
+      setIsLoading(true);
+      e.preventDefault();
+      setLoginError(false);
+      try {
+        await firebase
+          .auth()
+          .signInWithEmailAndPassword(data.email, data.password)
+          .then(async (respose) => {
+            respose.user?.getIdToken().then((token) => {
+              document.cookie =
+                cookie.serialize('userToken', token) || 'undefined';
+            });
+            document.cookie = cookie.serialize(
+              'rol',
+              respose.user?.uid || 'undefined'
+            );
+            reset();
+            await router.reload();
+          })
+          .catch(() => {
+            setLoginError(true);
+            setIsLoading(false);
+            setTimeout(() => {
+              setLoginError(false);
+            }, 3000);
+          });
+      } catch (err) {
+        console.log('err', err);
+      }
     }
   };
 
-  const handleValidation = useCallback(() => {
-    // Test for Alphanumeric password
-    const validPassword = /^(?=.*[a-zA-Z])(?=.*[0-9])/.test(password);
-
-    // Unable to send form unless fields are valid.
-    if (dirty) {
-      setDisabled(!validate(email) || password.length < 7 || !validPassword);
-    }
-  }, [email, password, dirty]);
-
-  useEffect(() => {
-    handleValidation();
-  }, [handleValidation]);
-
   return (
     <form
-      onSubmit={handleLogin}
+      onSubmit={handleSubmit(onSubmitLogin)}
       className="w-80 flex flex-col justify-between p-3"
     >
-      <div className="flex justify-center pb-12 ">
+      <div className="flex justify-center ">
         <Logo width="64px" height="64px" />
       </div>
+      <h1 className="flex justify-center text-3xl text-accent-9 font-extrabold pb-12">
+        {t('login')}
+      </h1>
+
       <div className="flex flex-col space-y-3">
         {message && (
-          <div className="text-red border border-red p-3">
-            {message}. Did you {` `}
+          <div className=" p-3">
             <span className="text-accent-9 inline font-bold hover:underline cursor-pointer">
-              forgot your password?
+              {t('lost_pass')}
             </span>
           </div>
         )}
-        <Input type="email" placeholder="Email" onChange={setEmail} />
-        <Input type="password" placeholder="Password" onChange={setPassword} />
+        <Input
+          type="email"
+          placeholder={t('form.email')}
+          ownRef={register('email', {
+            required: t('form.error.required') + '',
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+              message: t('form.error.email'),
+            },
+          })}
+        />
 
-        <Button
-          variant="slim"
-          type="submit"
-          loading={loading}
-          disabled={disabled}
-        >
-          Log In
+        {errors.email && (
+          <div className="mt-2 text-xs text-red">{errors.email.message}</div>
+        )}
+
+        <Input
+          type="password"
+          placeholder={t('form.password')}
+          ownRef={register('password', {
+            required: t('form.error.required') + '',
+            minLength: {
+              value: 6,
+              message: t('form.error.min_length'),
+            },
+          })}
+        />
+
+        {errors.password && (
+          <div className="mt-2 text-xs text-red">{errors.password.message}</div>
+        )}
+        {loginError ? <div>{t('login:login_error')}</div> : null}
+        <Button variant="slim" type="submit" loading={isLoading}>
+          {t('login:log_in')}
         </Button>
         <div className="pt-1 text-center text-sm">
-          <span className="text-accent-7">Dont have an account?</span>
+          <span className="text-accent-7 mr-1">{t('login:not_reg')}</span>
           <Link href={`/${i18n.language}/auth/register`} passHref>
             <span className="text-accent-9 font-bold hover:underline cursor-pointer">
-              Sign Up
+              {t('login:sign_up')}
             </span>
           </Link>
         </div>

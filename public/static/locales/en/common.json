@@ -1,5 +1,26 @@
 {
   "hello": "Hello World",
   "change": "Change Language",
-  "search": "Search for products..."
+  "search_product": "Search for products...",
+  "home": "Home",
+  "login": "Log In",
+  "register": "Sign Up",
+  "Logout": "Logout",
+  "search": "Search",
+  "wish_list": "Wishlist",
+  "cart": "Shopping Gag",
+  "error_title": "Error",
+  "loading": "Loading...",
+  "back": "Volver",
+   "form": {
+     "email": "email",
+     "password": "Password",
+     "password2": "Verify password",
+     "error": {
+       "email": "enter a valid email",
+       "min_length": "Should have at least 6 characters",
+       "required": "This field is required",
+       "validate": "The passwords don't match"
+     }
+   }
 }

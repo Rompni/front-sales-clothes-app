@@ -12,15 +12,9 @@ import {
   clearAllBodyScrollLocks,
   enableBodyScroll,
 } from 'body-scroll-lock';
+import { IModalProps } from '../../interfaces/ui';
 
-interface ModalProps {
-  className?: string;
-  children?: any;
-  onClose: () => void;
-  onEnter?: () => void | null;
-}
-
-const Modal: FunctionComponent<ModalProps> = ({
+const Modal: FunctionComponent<IModalProps> = ({
   children,
   onClose,
 }): JSX.Element => {

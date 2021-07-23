@@ -7,11 +7,7 @@ import Logo from '../../ui/Logo';
 import Searchbar from '../SearchBar';
 import UserNav from '../UserNav/UserNav';
 import { useTranslation } from 'react-i18next';
-
-interface navLink {
-  href: string;
-  label: string;
-}
+import { navLink } from '../../../interfaces/common';
 
 /*
 interface NavbarProps {
@@ -51,9 +47,9 @@ const Navbar: FunctionComponent = (): JSX.Element => {
           <div className="flex items-center justify-end flex-1 space-x-8">
             <UserNav />
           </div>
-          <div className="flex pb-4 lg:px-6 lg:hidden">
+          {/* <div className="flex pb-4 lg:px-6 lg:hidden">
             <Searchbar id="mobile-search" />
-          </div>
+          </div> */}
         </div>
       </Container>
     </NavbarRoot>
