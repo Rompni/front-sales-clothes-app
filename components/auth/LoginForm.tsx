@@ -36,14 +36,17 @@ const LoginForm: FunctionComponent = (): JSX.Element => {
           .then(async (respose) => {
             respose.user?.getIdToken().then((token) => {
               document.cookie =
-                cookie.serialize('userToken', token) || 'undefined';
+                cookie.serialize('userToken', token, { maxAge: 3600 }) ||
+                'undefined';
             });
             document.cookie = cookie.serialize(
               'rol',
-              respose.user?.uid || 'undefined'
+              respose.user?.uid || 'undefined',
+              { maxAge: 3600 }
             );
+
             reset();
-            await router.reload();
+            router.push(`/${i18n.language}`);
           })
           .catch(() => {
             setLoginError(true);
