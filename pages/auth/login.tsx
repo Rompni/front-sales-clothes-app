@@ -1,17 +1,27 @@
 import styles from '../../styles/Home.module.scss';
 import { withTranslation } from '../../i18n';
 import LoginForm from '../../components/auth/LoginForm';
+import { AuthContextValue, MainInitialProps } from '../../interfaces/auth';
+import Layout from '../../components/common/Layout';
 
-const Login = (): JSX.Element => {
+const Login = ({ t }: any): JSX.Element => {
   return (
-    <div className={styles.container}>
-      <LoginForm />
-    </div>
+    <Layout title={t('login')}>
+      <div className={styles.container}>
+        <LoginForm />
+      </div>
+    </Layout>
   );
 };
 
-Login.getInitialProps = async () => ({
-  namespacesRequired: ['common'],
+const namespacesRequired = ['common', 'login'];
+
+Login.getInitialProps = (): MainInitialProps => ({
+  authContext: {
+    value: AuthContextValue.WITHOUT,
+    redirectTo: '/',
+  },
+  namespacesRequired,
 });
 
-export default withTranslation('common')(Login);
+export default withTranslation('login')(Login);

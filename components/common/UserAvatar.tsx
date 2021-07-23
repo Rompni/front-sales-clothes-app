@@ -1,8 +1,12 @@
 import Avatar from 'react-avatar';
 import { FunctionComponent } from 'react';
 
-const UserAvatar: FunctionComponent = (): JSX.Element => {
-  return <Avatar name="Guess Name" size="32" round={true} />;
+interface IUserAvatar {
+  name: string;
+}
+
+const UserAvatar: FunctionComponent<IUserAvatar> = ({ name }): JSX.Element => {
+  return <Avatar name={name?.charAt(0)} size="32" round={true} />;
 };
 
 export default UserAvatar;

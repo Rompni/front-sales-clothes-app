@@ -1,15 +1,17 @@
 import { FunctionComponent } from 'react';
-import NextHead from 'next/head';
-import { DefaultSeo } from 'next-seo';
-import { config } from '../../config/seo';
+import Head from 'next/head';
 
-const Head: FunctionComponent = (): JSX.Element => {
+export type AppHeadProps = {
+  title?: string;
+};
+
+const AppHead: FunctionComponent<AppHeadProps> = ({ title }): JSX.Element => {
   return (
-    <>
-      <DefaultSeo {...config} />
+    <Head>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-    </>
+      <title>{title ? title + ' -' : ''} Zukka</title>
+    </Head>
   );
 };
 
-export default Head;
+export default AppHead;

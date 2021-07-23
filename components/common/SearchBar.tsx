@@ -4,13 +4,12 @@ import { useRouter } from 'next/router';
 import cn from 'classnames';
 import { Search } from 'react-feather';
 import { useTranslation } from 'react-i18next';
+import { ISearchBar } from '../../interfaces/common';
 
-interface Props {
-  className?: string;
-  id?: string;
-}
-
-const Searchbar: FunctionComponent<Props> = ({ className, id = 'search' }) => {
+const Searchbar: FunctionComponent<ISearchBar> = ({
+  className,
+  id = 'search',
+}) => {
   const router = useRouter();
   const { t, i18n } = useTranslation();
 

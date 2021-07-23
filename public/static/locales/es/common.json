@@ -1,5 +1,26 @@
 {
   "hello": "Hola Mundo",
   "change": "Cambiar Idioma",
-  "search": "Buscar producto..."
+  "search_product": "Buscar producto...",
+  "home": "Inicio",
+  "login": "Iniciar Sesión",
+  "register": "Registrarse",
+  "Logout": "Cerrar Sesión",
+  "search": "Buscar",
+  "wish_list": "Favoritos",
+  "cart": "Carrito",
+  "error_title": "Error",
+  "loading": "Cargando...",
+  "back": "Back",
+  "form": {
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "password2": "Validar contraseña",
+    "error": {
+      "email": "Digite un correo electrónico válido",
+      "min_length": "La contraseña tiene por los menos 6 caracteres",
+      "required": "Este campo es requerido",
+      "validate": "Las contraseñas no coinciden"
+    }
+  }
 }

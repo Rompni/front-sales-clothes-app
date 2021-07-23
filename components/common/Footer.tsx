@@ -1,13 +1,9 @@
 import { FunctionComponent } from 'react';
 import s from '../../styles/common/Footer.module.scss';
 import cn from 'classnames';
+import { IFooter } from '../../interfaces/common';
 
-interface Props {
-  className?: string;
-  children?: any;
-}
-
-const Footer: FunctionComponent<Props> = ({ className }): JSX.Element => {
+const Footer: FunctionComponent<IFooter> = ({ className }): JSX.Element => {
   const rootClassName = cn(s.root, className);
 
   return (

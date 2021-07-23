@@ -4,25 +4,40 @@ import cn from 'classnames';
 import { Heart, ShoppingBag } from 'react-feather';
 import Link from 'next/link';
 import Button from '../../ui/Button';
-import UserAvatar from '../UserAvatar';
+// import UserAvatar from '../UserAvatar';
 import I18nWidget from '../I18nWidget';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
+import { IUserNav } from '../../../interfaces/common';
+import firebase from '../../../firebase/config';
+import { useUserAuth } from '../../../utils/hooks/useUserAuth';
+import { logoutUser } from '../../../utils/auth';
 
-interface Props {
-  className?: string;
-}
-
-const UserNav: FunctionComponent<Props> = ({ className }): JSX.Element => {
-  // need implements functions
-
+const UserNav: FunctionComponent<IUserNav> = ({ className }): JSX.Element => {
   const itemsCount = 0;
-  const loggedIn = false;
-  const route = useRouter();
-  const { i18n } = useTranslation();
+  const router = useRouter();
+  const { isNotAuth, isAuth } = useUserAuth();
+  const { i18n, t } = useTranslation();
+
+  const signOut = async () => {
+    if (firebase) {
+      try {
+        await firebase
+          .auth()
+          .signOut()
+          .then(() => {
+            logoutUser();
+            router.push(`/${i18n.language}/auth/login`);
+          });
+        // alert
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  };
 
   const handleClick = (url: string) => {
-    route.push(url);
+    router.push(url);
   };
 
   return (
@@ -48,12 +63,26 @@ const UserNav: FunctionComponent<Props> = ({ className }): JSX.Element => {
             <I18nWidget />
           </li>
           <li className={s.item}>
-            {loggedIn ? (
-              <UserAvatar />
-            ) : (
+            {isAuth && (
+              <>
+                {/* <UserAvatar name={user} /> */}
+                <Link href={`/${i18n.language}/auth/login`} passHref>
+                  <Button
+                    variant="ghost"
+                    height={42}
+                    type="button"
+                    onClick={signOut}
+                  >
+                    {t('logout')}
+                  </Button>
+                </Link>
+              </>
+            )}
+
+            {isNotAuth && (
               <Link href={`/${i18n.language}/auth/login`} passHref>
                 <Button variant="ghost" height={42} type="button">
-                  Log In
+                  {t('login')}
                 </Button>
               </Link>
             )}
