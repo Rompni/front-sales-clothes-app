@@ -14,19 +14,21 @@ const Loading = () => (
 
 export type LayoutProps = {
   title?: string;
+  footer?: boolean;
 };
 
 const Layout: FunctionComponent<LayoutProps> = ({
   title,
   children,
+  footer = true,
 }): JSX.Element => {
   // const { locale = 'es' } = useRouter();
   return (
     <div className={cn(s.root)}>
       <AppHead title={title} />
       <Navbar />
-      <main className="fit">{children}</main>
-      <Footer />
+      <main className={s.fit}>{children}</main>
+      {footer && <Footer />}
     </div>
   );
 };

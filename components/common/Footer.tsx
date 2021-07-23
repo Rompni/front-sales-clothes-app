@@ -8,7 +8,7 @@ const Footer: FunctionComponent<IFooter> = ({ className }): JSX.Element => {
 
   return (
     <footer className={rootClassName}>
-      <div className="pt-5 pb-5 pr-3 pl-3 flex flex-col md:flex-row justify-between bg-black items-center space-y-4 text-accent-1 text-sm">
+      <div className="pt-6 pb-10 flex flex-col md:flex-row justify-between items-center space-y-4 bg-accent-9 text-accent-0 text-sm">
         <div>
           <span>&copy; 2021 Store , Inc. All rights reserved.</span>
         </div>
