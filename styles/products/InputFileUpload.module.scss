@@ -1,22 +1,16 @@
 .customInputFile {
-  background-color: #000000;
-  color: #fff;
+  @apply w-full bg-accent-0 text-accent-9 font-bold py-2 px-6 border-2 border-accent-9;
   cursor: pointer;
-  min-height: 100px;
   overflow: hidden;
-  padding: 10px;
-  padding-top: 35px;
   position: relative;
   text-align: center;
-  width: 200px;
 
 }
 .customInputFile:hover{
-  background-color: #4b4b4b;
+  @apply w-full bg-accent-9 text-accent-0 font-bold py-2 px-6 border-2;
 }
 
 .customInputFile .inputFile {
-  border: 10000px solid transparent;
   cursor: pointer;
   font-size: 10000px;
   margin: 0;

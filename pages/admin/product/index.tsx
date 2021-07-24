@@ -2,16 +2,13 @@ import styles from '../../../styles/Home.module.scss';
 import { withTranslation } from '../../../i18n';
 import Layout from '../../../components/common/Layout';
 import { AuthContextValue, MainInitialProps } from '../../../interfaces/auth';
-import FormCreateProduct from '../../../components/products/FormCreateProduct';
-import FileProvider from '../../../components/context/FileContext';
+import ProductListAdmin from '../../../components/products/ProductListAdmin';
 
-const CreateProductPage = ({ t }: any): JSX.Element => {
+const IndexProductPage = ({ t }: any): JSX.Element => {
   return (
     <Layout title={t('create')}>
       <div className={styles.container}>
-        <FileProvider>
-          <FormCreateProduct />
-        </FileProvider>
+        <ProductListAdmin />
       </div>
     </Layout>
   );
@@ -19,7 +16,7 @@ const CreateProductPage = ({ t }: any): JSX.Element => {
 
 const namespacesRequired = ['common'];
 
-CreateProductPage.getInitialProps = (): MainInitialProps => ({
+IndexProductPage.getInitialProps = (): MainInitialProps => ({
   authContext: {
     value: AuthContextValue.WITH,
     redirectTo: '/',
@@ -27,4 +24,4 @@ CreateProductPage.getInitialProps = (): MainInitialProps => ({
   namespacesRequired,
 });
 
-export default withTranslation('common')(CreateProductPage);
+export default withTranslation('common')(IndexProductPage);

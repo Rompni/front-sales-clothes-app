@@ -2,9 +2,9 @@ import { Product } from './ProductCard';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import firebase from 'firebase';
 import HomeAllProductsGrid from '../common/HomeAllProductsGrid';
-import { useEffect } from 'react';
+import LoadingDots from '../ui/LoadingDots';
 
-const ProductList = () => {
+const ProductListHome = (): JSX.Element => {
   const db = process.env.NEXT_PUBLIC_FIREBASE_DATABASE_NAME || '';
   const products: Product[] = [];
   const [value, loading, error] = useCollection(
@@ -37,10 +37,10 @@ const ProductList = () => {
   return (
     <>
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
-      {loading && <span>Collection: Loading...</span>}
+      {loading && <LoadingDots />}
       {value && <HomeAllProductsGrid products={products} />}
     </>
   );
 };
 
-export default ProductList;
+export default ProductListHome;
