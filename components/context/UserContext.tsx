@@ -1,5 +1,4 @@
 import { createContext, FunctionComponent, useEffect, useState } from 'react';
-import nookies from 'nookies';
 import { ContextProps, ILocal } from '../../interfaces/context';
 import firebase from '../../firebase/config';
 
