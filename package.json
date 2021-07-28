@@ -33,6 +33,7 @@
     "react-firebase-hooks": "^3.0.4",
     "react-hook-form": "^7.11.1",
     "react-merge-refs": "^1.1.0",
+    "reenhance-components": "^0.2.7",
     "sweetalert2": "^11.0.19",
     "tabbable": "^5.2.0",
     "tailwindcss": "^2.2.4"

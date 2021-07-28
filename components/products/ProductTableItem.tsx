@@ -45,7 +45,7 @@ const ProductTableItem: FunctionComponent<IProductTableItem> = ({
           {slug}
         </span>
       </td>
-      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+      <td className="px-3 py-4 whitespace-nowrap text-right text-sm font-medium">
         <span
           className="text-accent-9 hover:text-accent-4 cursor-pointer"
           onClick={() => handleDelete(id || '')}

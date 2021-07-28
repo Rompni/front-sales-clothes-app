@@ -15,6 +15,14 @@ module.exports = {
     },
   },
   theme: {
+    flex: {
+      1: '1 1 0%',
+      auto: '1 1 auto',
+      initial: '0 1 auto',
+      inherit: 'inherit',
+      none: 'none',
+      2: '2 2 0%',
+    },
     extend: {
       maxWidth: {
         '8xl': '1920px',
@@ -62,6 +70,13 @@ module.exports = {
       },
       scale: {
         120: '1.2',
+      },
+      screens: {
+        sm: { max: '767px' },
+        md: { min: '768px', max: '1023px' },
+        lg: { min: '1024px', max: '1279px' },
+        xl: { min: '1280px', max: '1535px' },
+        '2xl': { min: '1536px' },
       },
     },
   },

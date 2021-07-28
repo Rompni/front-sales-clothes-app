@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import { deleteProduct } from '../../firebase/ProductServices';
 import { FunctionComponent } from 'react';
 
-const header = ['Product Name', 'Product Price', 'Product Slug'];
+const header = ['Product Name', 'Price', 'Slug'];
 
 interface IProductTable {
   value: any;
@@ -60,8 +60,8 @@ const ProductTable: FunctionComponent<IProductTable> = ({
   return (
     <div className="flex flex-col">
       <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-          <div className="shadow overflow-hidden border-b border-accent-5 sm:rounded-lg">
+        <div className="py-2 align-middle inline-block min-w-full">
+          <div className="shadow overflow-hidden border-b border-accent-5 rounded-lg">
             <table className="min-w-full divide-y divide-accent-9">
               <thead className="bg-accent-9">
                 <tr>
@@ -69,7 +69,7 @@ const ProductTable: FunctionComponent<IProductTable> = ({
                     <th
                       key={i}
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-accent-0 uppercase tracking-wider"
+                      className="px-6 py-3 text-center text-xs font-medium text-accent-0 uppercase tracking-wider"
                     >
                       {header}
                     </th>

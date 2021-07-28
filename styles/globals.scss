@@ -4,6 +4,9 @@
 @tailwind utilities;
 
 :root {
+
+  min-width: 500px;
+
   --primary: #ffffff;
   --primary-2: #f1f3f5;
   --secondary: #000000;
@@ -141,3 +144,26 @@ a {
   }
 }
 
+.tile{
+  // duration | timing-function | iteration-count | name
+  animation: 1s ease infinite pulse;
+}
+
+$tile-bg: #666666;
+
+@keyframes pulse {
+  0% {
+    background: $tile-bg;
+    transform: scale(1);
+  }
+
+  25% {
+    background: darken($tile-bg, 10%);
+    transform: scale(1.015);
+  }
+
+  50% {
+    background: $tile-bg;
+    transform: scale(1);
+  }
+}
