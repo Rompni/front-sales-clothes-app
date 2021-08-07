@@ -1,10 +1,6 @@
 import { FunctionComponent } from 'react';
 import Image from 'next/Image';
-import { Product } from './ProductCard';
-
-interface IProductTableItem extends Product {
-  handleDelete: (id: string) => void;
-}
+import { IProductTableItem } from '../../interfaces/product';
 
 const ProductTableItem: FunctionComponent<IProductTableItem> = ({
   name,

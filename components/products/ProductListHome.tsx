@@ -1,8 +1,9 @@
-import { Product } from './ProductCard';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import firebase from 'firebase';
+import firebase from '../../firebase/config';
 import HomeAllProductsGrid from '../common/HomeAllProductsGrid';
 import LoadingDots from '../ui/LoadingDots';
+import { generateProduct } from '../../utils/generateProduct';
+import { Product } from '../../interfaces/product';
 
 const ProductListHome = (): JSX.Element => {
   const db = process.env.NEXT_PUBLIC_FIREBASE_DATABASE_NAME || '';
@@ -16,17 +17,7 @@ const ProductListHome = (): JSX.Element => {
 
   const renderProducts = () => {
     value?.docs.map((doc) => {
-      const { price, name, image, slug, stock, description } = doc.data();
-
-      const product: Product = {
-        id: doc.id,
-        name: name,
-        description: description,
-        price: price,
-        image: { url: image },
-        slug: slug,
-        stock: stock,
-      };
+      const product: Product = generateProduct(doc);
       products.push(product);
       return null;
     });

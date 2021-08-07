@@ -1,13 +1,7 @@
 import cn from 'classnames';
 import s from '../../styles/products/ProductTag.module.scss';
 import { FunctionComponent } from 'react';
-
-interface ProductTagProps {
-  className?: string;
-  name: string;
-  price: string;
-  fontSize?: number;
-}
+import { ProductTagProps } from '../../interfaces/product';
 
 const ProductTag: FunctionComponent<ProductTagProps> = ({
   name,
@@ -28,7 +22,7 @@ const ProductTag: FunctionComponent<ProductTagProps> = ({
           {name}
         </span>
       </h3>
-      <div className={s.price}>{price}</div>
+      <div className={s.price}>{price}$ USD</div>
     </div>
   );
 };

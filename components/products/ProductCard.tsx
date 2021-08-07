@@ -1,36 +1,10 @@
-import Image, { ImageProps } from 'next/Image';
+import Image from 'next/Image';
 import { FunctionComponent } from 'react';
 import Link from 'next/link';
 import cn from 'classnames';
 import s from '../../styles/products/ProductCard.module.scss';
+import { IProductCardProps } from '../../interfaces/product';
 
-export type ProductImage = {
-  url: string;
-  alt?: string;
-};
-
-export type Stock = {
-  size: 'XS' | 'S' | 'M' | 'L' | 'XL';
-  value: number;
-};
-
-export type Product = {
-  id?: string;
-  name: string;
-  description: string;
-  slug: string;
-  image: ProductImage;
-  price: string;
-  stock?: Stock[];
-};
-
-interface IProductCardProps {
-  className?: string;
-  product: Product;
-  noNameTag?: boolean;
-  imgProps?: Omit<ImageProps, any>;
-  variant?: 'default' | 'slim' | 'simple';
-}
 const ProductCard: FunctionComponent<IProductCardProps> = ({
   variant,
   className,

@@ -1,14 +1,10 @@
 import ProductTableItem from './ProductTableItem';
-import { Product } from './ProductCard';
 import Swal from 'sweetalert2';
 import { deleteProduct } from '../../firebase/ProductServices';
 import { FunctionComponent } from 'react';
+import { IProductTable, Product } from '../../interfaces/product';
 
 const header = ['Product Name', 'Price', 'Slug'];
-
-interface IProductTable {
-  value: any;
-}
 
 const ProductTable: FunctionComponent<IProductTable> = ({
   value,

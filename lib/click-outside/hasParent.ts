@@ -1,6 +1,5 @@
-import isInDOM from './isInDom';
+import { isInDOM } from './isInDom';
 
-const hasParent = (element: any, root: any) =>
-  root && root.contains(element) && isInDOM(element);
-
-export default hasParent;
+export const hasParent = (element: any, root: any) => {
+  return root && root.contains(element) && isInDOM(element);
+};

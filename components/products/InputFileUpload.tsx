@@ -6,12 +6,7 @@ import Swal from 'sweetalert2';
 import LoadingDots from '../ui/LoadingDots';
 import { FileContext } from '../context/FileContext';
 import { XSquare } from 'react-feather';
-
-export interface InputFileProps {
-  className?: string;
-  onChange?: (...args: any[]) => any;
-  ownRef?: UseFormRegisterReturn;
-}
+import { InputFileProps } from '../../interfaces/product';
 
 const InputFileUpload: FunctionComponent<InputFileProps> = (
   props
