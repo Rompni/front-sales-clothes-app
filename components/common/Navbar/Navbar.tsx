@@ -7,11 +7,7 @@ import Logo from '../../ui/Logo';
 import Searchbar from '../SearchBar';
 import UserNav from '../UserNav/UserNav';
 import { useTranslation } from 'react-i18next';
-
-interface navLink {
-  href: string;
-  label: string;
-}
+// import { navLink } from '../../../interfaces/common';
 
 /*
 interface NavbarProps {
@@ -21,11 +17,11 @@ interface NavbarProps {
 const Navbar: FunctionComponent = (): JSX.Element => {
   const { i18n } = useTranslation();
 
-  // these are provisional
+  /* these are provisional
   const links: navLink[] = [
     { href: `/${i18n.language}`, label: 'All' },
     { href: `/${i18n.language}/search`, label: 'Search' },
-  ];
+  ]; */
 
   return (
     <NavbarRoot>
@@ -37,23 +33,23 @@ const Navbar: FunctionComponent = (): JSX.Element => {
                 <Logo />
               </span>
             </Link>
-            <nav className={s.navMenu}>
+            {/*  <nav className={s.navMenu}>
               {links?.map((l) => (
                 <Link href={l.href} key={l.href} passHref>
                   <span className={s.link}>{l.label}</span>
                 </Link>
               ))}
-            </nav>
+            </nav> */}
           </div>
-          <div className="justify-center flex-1 hidden lg:flex">
+          <div className="justify-center flex-1 hidden lg:flex xl:flex 2xl:flex">
             <Searchbar />
           </div>
-          <div className="flex items-center justify-end flex-1 space-x-8">
+          <div className="flex items-center ml-3 mr-3 justify-end flex-1 space-x-8">
             <UserNav />
           </div>
-          <div className="flex pb-4 lg:px-6 lg:hidden">
-            <Searchbar id="mobile-search" />
-          </div>
+        </div>
+        <div className="flex pb-4 md:px-6 lg:hidden xl:hidden 2xl:hidden">
+          <Searchbar id="mobile-search" />
         </div>
       </Container>
     </NavbarRoot>

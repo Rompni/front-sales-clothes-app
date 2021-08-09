@@ -1,0 +1,23 @@
+.customInputFile {
+  @apply w-full bg-accent-0 text-accent-9 font-bold py-2 px-6 border-2 border-accent-9;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+
+}
+.customInputFile:hover{
+  @apply w-full bg-accent-9 text-accent-0 font-bold py-2 px-6 border-2;
+}
+
+.customInputFile .inputFile {
+  cursor: pointer;
+  font-size: 10000px;
+  margin: 0;
+  opacity: 0;
+  outline: 0 none;
+  padding: 0;
+  position: absolute;
+  right: -1000px;
+  top: -1000px;
+}

@@ -9,21 +9,9 @@ import {
 import mergeRefs from 'react-merge-refs';
 import s from '../../styles/ui/Button.module.scss';
 import LoadingDots from './LoadingDots';
+import { IButtonProps } from '../../interfaces/ui';
 
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  href?: string;
-  className?: string;
-  variant?: 'flat' | 'slim' | 'ghost';
-  active?: boolean;
-  type?: 'submit' | 'reset' | 'button';
-  Component?: string | JSXElementConstructor<any>;
-  width?: string | number;
-  height?: string | number;
-  loading?: boolean;
-  disabled?: boolean;
-}
-
-const Button: FunctionComponent<ButtonProps> = forwardRef(
+const Button: FunctionComponent<IButtonProps> = forwardRef(
   (props, buttonRef) => {
     const {
       className,

@@ -3,26 +3,25 @@ import s from '../../../styles/common/UserNav.module.scss';
 import cn from 'classnames';
 import { Heart, ShoppingBag } from 'react-feather';
 import Link from 'next/link';
-import Button from '../../ui/Button';
-import UserAvatar from '../UserAvatar';
+
 import I18nWidget from '../I18nWidget';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
+import { IUserNav } from '../../../interfaces/common';
+import { useUserAuth } from '../../../utils/hooks/useUserAuth';
+import { useWindowSize } from '../../../utils/hooks/useWindowSize';
+import DropdownMenu from './DropdownMenu';
+import { Icon } from '../../../lib/RenderIcon';
 
-interface Props {
-  className?: string;
-}
-
-const UserNav: FunctionComponent<Props> = ({ className }): JSX.Element => {
-  // need implements functions
-
+const UserNav: FunctionComponent<IUserNav> = ({ className }): JSX.Element => {
   const itemsCount = 0;
-  const loggedIn = false;
-  const route = useRouter();
+  const router = useRouter();
+  const { isAuth } = useUserAuth();
   const { i18n } = useTranslation();
+  const { width } = useWindowSize();
 
   const handleClick = (url: string) => {
-    route.push(url);
+    router.push(url);
   };
 
   return (
@@ -47,15 +46,18 @@ const UserNav: FunctionComponent<Props> = ({ className }): JSX.Element => {
           <li className={s.item}>
             <I18nWidget />
           </li>
+
           <li className={s.item}>
-            {loggedIn ? (
-              <UserAvatar />
+            {isAuth ? (
+              <DropdownMenu />
             ) : (
-              <Link href={`/${i18n.language}/auth/login`} passHref>
-                <Button variant="ghost" height={42} type="button">
-                  Log In
-                </Button>
-              </Link>
+              <>
+                <div
+                  onClick={() => router.push(`/${i18n.language}/auth/login`)}
+                >
+                  <Icon name="LogIn" />
+                </div>
+              </>
             )}
           </li>
         </ul>

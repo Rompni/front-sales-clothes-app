@@ -14,6 +14,9 @@ const I18nWidget: FunctionComponent = (): JSX.Element => {
       return;
     }
     // Only English Spanish
+
+    if (language === i18n.language) return;
+
     if (lang === 1) setLang(0);
     else setLang(1);
 

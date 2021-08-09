@@ -11,4 +11,7 @@ module.exports = withImages({
   publicRuntimeConfig: {
     localeSubpaths,
   },
+  images: {
+    domains: ['firebasestorage.googleapis.com'],
+  },
 });

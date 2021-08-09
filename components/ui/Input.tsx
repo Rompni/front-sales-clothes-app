@@ -1,14 +1,10 @@
 import cn from 'classnames';
 import s from '../../styles/ui/Input.module.scss';
-import { FunctionComponent, InputHTMLAttributes } from 'react';
+import { FunctionComponent } from 'react';
+import { IInputProps } from '../../interfaces/ui';
 
-export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  className?: string;
-  onChange?: (...args: any[]) => any;
-}
-
-const Input: FunctionComponent<InputProps> = (props): JSX.Element => {
-  const { className, onChange, ...rest } = props;
+const Input: FunctionComponent<IInputProps> = (props): JSX.Element => {
+  const { className, onChange, ownRef, ...rest } = props;
 
   const rootClassName = cn(s.root, {}, className);
 
@@ -29,6 +25,7 @@ const Input: FunctionComponent<InputProps> = (props): JSX.Element => {
         autoCapitalize="off"
         spellCheck="false"
         {...rest}
+        {...ownRef}
       />
     </label>
   );

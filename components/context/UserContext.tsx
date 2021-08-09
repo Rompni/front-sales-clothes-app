@@ -1,7 +1,9 @@
 import { createContext, FunctionComponent, useEffect, useState } from 'react';
+import { ContextProps, ILocal } from '../../interfaces/context';
+import firebase from '../../firebase/config';
 
 export const defaultLocale = 'es';
-export const locales = [
+export const locales: ILocal[] = [
   {
     name: 'es',
     img: {
@@ -18,14 +20,10 @@ export const locales = [
   },
 ];
 
-type ContextProps = {
-  locale: string;
-  setLocale: (lang: string) => void;
-};
-
 const InitialContext: ContextProps = {
   locale: 'es',
-  setLocale: (lang) => console.log(''),
+  user: '',
+  setLocale: (lang) => ({}),
 };
 
 export const UserContext = createContext<ContextProps>(InitialContext);
@@ -34,7 +32,9 @@ UserContext.displayName = 'UserContext';
 
 const UserProvider: FunctionComponent = ({ children }): JSX.Element => {
   const [locale, setLocale] = useState('es');
+  const [user, setUser] = useState<any>('');
 
+  // CHANGE LANGUAGE
   useEffect(() => {
     if (!window) {
       return;
@@ -43,8 +43,18 @@ const UserProvider: FunctionComponent = ({ children }): JSX.Element => {
     const language = localStorage.getItem('lang') || locale;
     setLocale(language);
   }, [locale]);
+
+  useEffect(() => {
+    if (firebase) {
+      firebase.auth().onAuthStateChanged((authUser) => {
+        if (authUser) setUser(authUser.email);
+        else setUser('');
+      });
+    }
+  }, []);
+
   return (
-    <UserContext.Provider value={{ locale, setLocale }}>
+    <UserContext.Provider value={{ user, locale, setLocale }}>
       {children}
     </UserContext.Provider>
   );
