@@ -1,12 +1,10 @@
 import '../styles/globals.scss';
 import App, { AppContext, AppProps } from 'next/app';
 import { appWithTranslation } from '../i18n';
-import Layout from '../components/common/Layout';
 import UserProvider from '../components/context/UserContext';
 import { AuthContext, AuthContextValue } from '../interfaces/auth';
 import redirectTo from '../utils/redirectTo';
 import { parseCookies } from '../utils/auth';
-import Router from 'next/router';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

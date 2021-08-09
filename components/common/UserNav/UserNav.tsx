@@ -3,38 +3,22 @@ import s from '../../../styles/common/UserNav.module.scss';
 import cn from 'classnames';
 import { Heart, ShoppingBag } from 'react-feather';
 import Link from 'next/link';
-import Button from '../../ui/Button';
-// import UserAvatar from '../UserAvatar';
+
 import I18nWidget from '../I18nWidget';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
 import { IUserNav } from '../../../interfaces/common';
-import firebase from '../../../firebase/config';
 import { useUserAuth } from '../../../utils/hooks/useUserAuth';
-import { logoutUser } from '../../../utils/auth';
+import { useWindowSize } from '../../../utils/hooks/useWindowSize';
+import DropdownMenu from './DropdownMenu';
+import { Icon } from '../../../lib/RenderIcon';
 
 const UserNav: FunctionComponent<IUserNav> = ({ className }): JSX.Element => {
   const itemsCount = 0;
   const router = useRouter();
-  const { isNotAuth, isAuth } = useUserAuth();
-  const { i18n, t } = useTranslation();
-
-  const signOut = async () => {
-    if (firebase) {
-      try {
-        await firebase
-          .auth()
-          .signOut()
-          .then(() => {
-            logoutUser();
-            router.push(`/${i18n.language}/auth/login`);
-          });
-        // alert
-      } catch (e) {
-        console.log(e);
-      }
-    }
-  };
+  const { isAuth } = useUserAuth();
+  const { i18n } = useTranslation();
+  const { width } = useWindowSize();
 
   const handleClick = (url: string) => {
     router.push(url);
@@ -62,29 +46,18 @@ const UserNav: FunctionComponent<IUserNav> = ({ className }): JSX.Element => {
           <li className={s.item}>
             <I18nWidget />
           </li>
-          <li className={s.item}>
-            {isAuth && (
-              <>
-                {/* <UserAvatar name={user} /> */}
-                <Link href={`/${i18n.language}/auth/login`} passHref>
-                  <Button
-                    variant="ghost"
-                    height={42}
-                    type="button"
-                    onClick={signOut}
-                  >
-                    {t('logout')}
-                  </Button>
-                </Link>
-              </>
-            )}
 
-            {isNotAuth && (
-              <Link href={`/${i18n.language}/auth/login`} passHref>
-                <Button variant="ghost" height={42} type="button">
-                  {t('login')}
-                </Button>
-              </Link>
+          <li className={s.item}>
+            {isAuth ? (
+              <DropdownMenu />
+            ) : (
+              <>
+                <div
+                  onClick={() => router.push(`/${i18n.language}/auth/login`)}
+                >
+                  <Icon name="LogIn" />
+                </div>
+              </>
             )}
           </li>
         </ul>

@@ -1,13 +1,39 @@
 import firebase from './config';
-import { IDocProduct } from '../components/products/FormCreateProduct';
+import { IDocProduct } from '../interfaces/product';
+
+const db = process.env.NEXT_PUBLIC_FIREBASE_DATABASE_NAME || '';
 
 export const createProduct = async (data: IDocProduct): Promise<void> => {
-  return await firebase.firestore().collection('products').doc().set(data);
+  return await firebase.firestore().collection(db).doc().set(data);
 };
 
 export const deleteProduct = async (id: string): Promise<void> => {
-  return await firebase.firestore().collection('products').doc(id).delete();
+  return await firebase.firestore().collection(db).doc(id).delete();
 };
 export const updateProduct = async (data: any, id: string): Promise<void> => {
-  return await firebase.firestore().collection('products').doc(id).update(data);
+  return await firebase.firestore().collection(db).doc(id).update(data);
+};
+
+export const getProductBySlug = async (
+  slug: string | string[] | undefined
+): Promise<
+  firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>
+> => {
+  return await firebase
+    .firestore()
+    .collection(db)
+    .where('slug', '==', slug)
+    .get();
+};
+
+export const getProductByNotSlug = async (
+  slug: string | string[] | undefined
+): Promise<
+  firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>
+> => {
+  return await firebase
+    .firestore()
+    .collection(db)
+    .where('slug', '!=', slug)
+    .get();
 };

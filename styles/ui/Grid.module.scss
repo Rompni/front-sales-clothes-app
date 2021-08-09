@@ -3,16 +3,29 @@ $row-height: 200px;
 
 
 .root {
-  @apply grid grid-cols-1 gap-0;
+  @apply grid;
+
+  @screen 2xl {
+    @apply grid-cols-3 grid-rows-2;
+  }
+
+  @screen xl {
+    @apply grid-cols-3 grid-rows-2;
+  }
 
   @screen lg {
     @apply grid-cols-3 grid-rows-2;
   }
 
+  @screen md {
+    @apply grid-cols-2 grid-rows-3 min-h-screen;
+  }
+
+
   & > * {
     @apply row-span-1 bg-transparent box-border overflow-hidden;
     height: 200px;
-    max-height: 200px;
+    //max-height: 200px;
 
     @screen lg {
       @apply col-span-1;

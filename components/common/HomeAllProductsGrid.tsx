@@ -1,9 +1,10 @@
 import { FunctionComponent } from 'react';
 import Link from 'next/link';
 import s from '../../styles/common/HomeAllProductsGrid.module.scss';
-import ProductCard, { Product } from '../products/ProductCard';
+import ProductCard from '../products/ProductCard';
 import Grid from '../ui/Grid';
 import cn from 'classnames';
+import { Product } from '../../interfaces/product';
 
 interface Props {
   categories?: any;

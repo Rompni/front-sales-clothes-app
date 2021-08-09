@@ -8,21 +8,7 @@ import firebase from '../../firebase/config';
 import { createProduct } from '../../firebase/ProductServices';
 import Swal from 'sweetalert2';
 import { FileContext } from '../context/FileContext';
-
-export interface IDocProduct {
-  name: string;
-  description: string;
-  image: string;
-  price: number;
-  slug: string;
-}
-
-export interface IRegisterProduct {
-  name: string;
-  description: string;
-  price: number;
-  slug: string;
-}
+import { IDocProduct, IRegisterProduct } from '../../interfaces/product';
 
 const FormCreateProduct: FunctionComponent = (): JSX.Element => {
   const {

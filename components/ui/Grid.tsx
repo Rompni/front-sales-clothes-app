@@ -28,7 +28,7 @@ const Grid: FunctionComponent<GridProps> = ({
     },
     className
   );
-  return <div className={rootClassName}>{children}</div>;
+  return <div className={cn(rootClassName)}>{children}</div>;
 };
 
 export default Grid;

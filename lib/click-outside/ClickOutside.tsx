@@ -1,5 +1,5 @@
-import React, { useRef, useEffect, MouseEvent, FunctionComponent } from 'react';
-import hasParent from './hasParent';
+import React, { useRef, useEffect, MouseEvent } from 'react';
+import { hasParent } from './hasParent';
 
 interface ClickOutsideProps {
   active: boolean;
@@ -7,11 +7,11 @@ interface ClickOutsideProps {
   children: any;
 }
 
-const ClickOutside: FunctionComponent<ClickOutsideProps> = ({
+const ClickOutside = ({
   active = true,
   onClick,
   children,
-}) => {
+}: ClickOutsideProps) => {
   const innerRef = useRef();
 
   const handleClick = (event: any) => {
