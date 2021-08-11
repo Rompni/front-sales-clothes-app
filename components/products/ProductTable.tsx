@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 import { deleteProduct } from '../../firebase/ProductServices';
 import { FunctionComponent } from 'react';
 import { IProductTable, Product } from '../../interfaces/product';
+import { useTranslation } from 'react-i18next';
 
 const header = ['Product Name', 'Price', 'Slug'];
 
@@ -10,7 +11,7 @@ const ProductTable: FunctionComponent<IProductTable> = ({
   value,
 }): JSX.Element => {
   const products: Product[] = [];
-
+  const { t } = useTranslation();
   const handleDelete = (id: string) => {
     Swal.fire({
       title: 'Are you sure?',
@@ -24,10 +25,10 @@ const ProductTable: FunctionComponent<IProductTable> = ({
       if (result.isConfirmed) {
         deleteProduct(id)
           .then(() => {
-            Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+            Swal.fire(t('delete'), 'Your file has been deleted.', 'success');
           })
           .catch(() => {
-            Swal.fire('Error!', 'Your file has not deleted', 'error');
+            Swal.fire(t('error'), 'Your file has not deleted', 'error');
           });
       }
     });
@@ -54,7 +55,7 @@ const ProductTable: FunctionComponent<IProductTable> = ({
   renderProducts();
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col mt-20">
       <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="py-2 align-middle inline-block min-w-full">
           <div className="shadow overflow-hidden border-b border-accent-5 rounded-lg">

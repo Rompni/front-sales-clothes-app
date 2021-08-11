@@ -3,6 +3,8 @@ import firebase from 'firebase';
 import LoadingDots from '../ui/LoadingDots';
 import ProductTable from './ProductTable';
 import { FunctionComponent } from 'react';
+import 'react-perfect-scrollbar/dist/css/styles.css';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 
 const ProductListAdmin: FunctionComponent = () => {
   const database = process.env.NEXT_PUBLIC_FIREBASE_DATABASE_NAME || '';
@@ -18,7 +20,11 @@ const ProductListAdmin: FunctionComponent = () => {
     <>
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
       {loading && <LoadingDots />}
-      {value && <ProductTable value={value} />}
+      {value && (
+        <PerfectScrollbar>
+          <ProductTable value={value} />
+        </PerfectScrollbar>
+      )}
     </>
   );
 };
