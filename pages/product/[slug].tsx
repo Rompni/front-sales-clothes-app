@@ -26,7 +26,7 @@ const ProductPage = ({ t }: any): JSX.Element => {
       .catch((e) => {
         setError(e);
       });
-  }, []);
+  }, [product]);
 
   return (
     <Layout title={t('home')} footer={false}>
@@ -37,7 +37,7 @@ const ProductPage = ({ t }: any): JSX.Element => {
   );
 };
 
-ProductPage.getInitialProps = () => ({
+ProductPage.getInitialProps = async () => ({
   namespacesRequired: ['common'],
 });
 

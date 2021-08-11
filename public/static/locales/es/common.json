@@ -22,5 +22,20 @@
       "required": "Este campo es requerido",
       "validate": "Las contraseñas no coinciden"
     }
-  }
+  },
+  "error_create_product":"error al crear producto!",
+  "product_create": "Producto creado!",
+  "error_image": "Error de imagen",
+  "image_required": "La imagen es requerida!",
+  "only_positive_numbers": "Solo se aceptan numeros positivos",
+  "price" : "Precio",
+  "price_required" : "El precio es requerido",
+  "product_name_required": "Nombre del producto es requerido",
+  "product_description": "Descripcion del producto",
+  "product_slug": "Token del producto",
+  "delete" :"Eliminado!",
+  "slug" : "Token requerido.",
+  "success" : "Éxito",
+  "_error" : "Error!",
+  "create": "Crear"
 }

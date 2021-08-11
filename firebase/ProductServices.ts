@@ -35,5 +35,6 @@ export const getProductByNotSlug = async (
     .firestore()
     .collection(db)
     .where('slug', '!=', slug)
+    .limit(4)
     .get();
 };

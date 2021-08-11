@@ -22,5 +22,21 @@
        "required": "This field is required",
        "validate": "The passwords don't match"
      }
-   }
+   },
+  "error_create_product" : "Error while create product!",
+  "product_create": "Product are created!",
+  "error_image": "Error Image",
+  "image_required" : "The image is required!",
+  "only_positive_numbers" :"Only positive numbers accepted",
+  "price": "Price",
+   "price_required": "Price is required",
+   "product_name_required" : "Product name is required",
+  "product_description" : "Product Description",
+  "product_slug" : " Product Slug",
+  "slug_required" : "Slug is required",
+  "delete": "Deleted!",
+  "success" : "Success",
+  "_error": "Error!",
+  "create" : "Create"
+
 }

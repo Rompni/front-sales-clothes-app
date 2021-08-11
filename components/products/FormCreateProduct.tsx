@@ -9,6 +9,7 @@ import { createProduct } from '../../firebase/ProductServices';
 import Swal from 'sweetalert2';
 import { FileContext } from '../context/FileContext';
 import { IDocProduct, IRegisterProduct } from '../../interfaces/product';
+import { useTranslation } from 'react-i18next';
 
 const FormCreateProduct: FunctionComponent = (): JSX.Element => {
   const {
@@ -18,8 +19,9 @@ const FormCreateProduct: FunctionComponent = (): JSX.Element => {
     reset,
   } = useForm<IRegisterProduct>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [progress, setProgress] = useState<number>(0);
   const { myFile, handleFile } = useContext(FileContext);
-
+  const { t } = useTranslation();
   const onSubmitCreateProduct = async (data: IRegisterProduct, e: any) => {
     e.preventDefault();
     setIsLoading(true);
@@ -29,25 +31,27 @@ const FormCreateProduct: FunctionComponent = (): JSX.Element => {
           const storageRef = firebase.storage().ref('/image/' + myFile.name);
           const task = storageRef.put(myFile);
           task.on('state_changed', (snapshot) => {
+            setProgress(
+              Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            );
+
             if (snapshot.bytesTransferred === snapshot.totalBytes) {
               task.snapshot.ref.getDownloadURL().then((image) => {
                 if (image !== '') {
                   const product: IDocProduct = { ...data, image };
                   createProduct(product)
                     .then(() => {
-                      Swal.fire('Success!', 'Product are created!', 'success');
+                      Swal.fire(t('success'), t('product_create'), 'success');
                       setIsLoading(false);
                       handleFile('');
+                      setProgress(0);
                       reset();
                     })
                     .catch((err) => {
                       setIsLoading(false);
+                      setProgress(0);
                       handleFile('');
-                      Swal.fire(
-                        'Error white create product!',
-                        err.code,
-                        'error'
-                      );
+                      Swal.fire(t('error_create_product'), err.code, 'error');
                     });
                 }
               });
@@ -55,7 +59,8 @@ const FormCreateProduct: FunctionComponent = (): JSX.Element => {
           });
         } else {
           setIsLoading(false);
-          Swal.fire('Error Image', 'The image is required', 'error');
+          setProgress(0);
+          Swal.fire(t('error_image'), t('image_required'), 'error');
         }
       } catch (err) {
         console.error('here', err);
@@ -76,7 +81,7 @@ const FormCreateProduct: FunctionComponent = (): JSX.Element => {
             type="text"
             placeholder="Product Name"
             ownRef={register('name', {
-              required: 'product name is required',
+              required: t('product_name_required') + '',
             })}
           />
 
@@ -85,9 +90,9 @@ const FormCreateProduct: FunctionComponent = (): JSX.Element => {
           )}
           <Input
             type="text"
-            placeholder="Product Description"
+            placeholder={t('product_description')}
             ownRef={register('description', {
-              required: 'description is required',
+              required: t('product_description') + '',
             })}
           />
           {errors.description && (
@@ -97,9 +102,9 @@ const FormCreateProduct: FunctionComponent = (): JSX.Element => {
           )}
           <Input
             type="number"
-            placeholder="Price"
+            placeholder={t('price')}
             ownRef={register('price', {
-              required: 'price is required',
+              required: t('price_required') + '',
               validate: { positive: (value) => value > 0 },
             })}
           />
@@ -110,13 +115,13 @@ const FormCreateProduct: FunctionComponent = (): JSX.Element => {
 
           {errors.price?.type === 'positive' && (
             <div className="mt-2 text-xs text-red">
-              Only positive numbers accepted
+              {t('only_positive_numbers')}
             </div>
           )}
 
           <Input
             type="text"
-            placeholder="Product Slug"
+            placeholder={t('product_slug')}
             ownRef={register('slug', {
               required: 'slug is required',
             })}
@@ -132,13 +137,34 @@ const FormCreateProduct: FunctionComponent = (): JSX.Element => {
           <InputFileUpload />
         </div>
 
+        {/* <div className="relative pt-1">
+          <div className="flex mb-2 items-center justify-between">
+            <div>
+              <span
+                  className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-600 bg-blueGray-200">
+                Task in progress
+              </span>
+            </div>
+            <div className="text-right">
+              <span className="text-xs font-semibold inline-block text-blueGray-600">
+                {`${progress}%`}
+              </span>
+            </div>
+          </div>
+          <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-500">
+            <div
+                style={{width: `${progress}%`}}
+                className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-black"
+            />
+          </div>
+        </div> */}
         <Button
           variant="slim"
           type="submit"
           loading={isLoading}
           onClick={handleSubmit(onSubmitCreateProduct)}
         >
-          Create
+          {t('create')}
         </Button>
       </div>
     </>

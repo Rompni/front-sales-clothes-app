@@ -41,14 +41,15 @@ const ProductView: FunctionComponent<Product> = (
           <div className={cn(s.main, 'fit')}>
             <ProductTag name={name} price={`${price}`} fontSize={32} />
             <div className={s.sliderContainer}>
-              <div key={image.url} className={s.imageContainer}>
+              <div key={slug} className={s.imageContainer}>
                 <Image
                   className={s.img}
-                  src={image.url!}
+                  src={image.url}
                   alt={image.alt || 'Product Image'}
+                  placeholder={'blur'}
+                  blurDataURL="/product-img-placeholder.svg"
                   width={600}
                   height={600}
-                  priority
                   quality="85"
                 />
               </div>
