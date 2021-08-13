@@ -16,7 +16,6 @@ const ProductCard: FunctionComponent<IProductCardProps> = ({
 }): JSX.Element => {
   const { price } = product;
   const { i18n } = useTranslation();
-
   const rootClassName = cn(
     s.root,
     { [s.slim]: variant === 'slim', [s.simple]: variant === 'simple' },
@@ -24,7 +23,7 @@ const ProductCard: FunctionComponent<IProductCardProps> = ({
   );
 
   return (
-    <Link href={`/product/${product.slug}`} {...props} passHref>
+    <Link href={`${i18n.language}/product/${product.slug}`} {...props} passHref>
       <span className={rootClassName}>
         {variant === 'simple' && (
           <>

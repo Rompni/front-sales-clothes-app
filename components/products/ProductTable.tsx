@@ -4,31 +4,40 @@ import { deleteProduct } from '../../firebase/ProductServices';
 import { FunctionComponent } from 'react';
 import { IProductTable, Product } from '../../interfaces/product';
 import { useTranslation } from 'react-i18next';
-
-const header = ['Product Name', 'Price', 'Slug'];
+import { generateProduct } from '../../utils/generateProduct';
+import Button from '../ui/Button';
+import { useRouter } from 'next/router';
 
 const ProductTable: FunctionComponent<IProductTable> = ({
   value,
 }): JSX.Element => {
   const products: Product[] = [];
-  const { t } = useTranslation();
+  const { i18n, t } = useTranslation();
+  const route = useRouter();
+  const header = [t('product'), t('price'), t('product_slug')];
+
+  const handleCreate = () => {
+    route.push(`/${i18n.language}/admin/product/create`);
+  };
+
   const handleDelete = (id: string) => {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      title: t('are_you_sure'),
+      text: t('no_revert'),
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#000',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
+      confirmButtonText: t('delete_it'),
+      cancelButtonText: t('cancel'),
     }).then((result) => {
       if (result.isConfirmed) {
         deleteProduct(id)
           .then(() => {
-            Swal.fire(t('delete'), 'Your file has been deleted.', 'success');
+            Swal.fire(t('delete'), t('deleted'), 'success');
           })
           .catch(() => {
-            Swal.fire(t('error'), 'Your file has not deleted', 'error');
+            Swal.fire(t('error'), t('no_deleted'), 'error');
           });
       }
     });
@@ -36,17 +45,7 @@ const ProductTable: FunctionComponent<IProductTable> = ({
 
   const renderProducts = () => {
     value?.docs.map((doc: any) => {
-      const { price, name, image, slug, stock, description } = doc.data();
-
-      const product: Product = {
-        id: doc.id,
-        name: name,
-        description: description,
-        price: price,
-        image: { url: image },
-        slug: slug,
-        stock: stock,
-      };
+      const product: Product = generateProduct(doc);
       products.push(product);
       return null;
     });
@@ -55,10 +54,14 @@ const ProductTable: FunctionComponent<IProductTable> = ({
   renderProducts();
 
   return (
-    <div className="flex flex-col mt-20">
+    <div className="flex flex-col mt-40">
+      <Button className="mb-2 mt-2" onClick={handleCreate}>
+        {`${t('create')} ${t('product')}`}{' '}
+      </Button>
+
       <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="py-2 align-middle inline-block min-w-full">
-          <div className="shadow overflow-hidden border-b border-accent-5 rounded-lg">
+          <div className="shadow overflow-hidden border border-accent-9 rounded-lg shadow-lg">
             <table className="min-w-full divide-y divide-accent-9">
               <thead className="bg-accent-9">
                 <tr>
@@ -72,13 +75,18 @@ const ProductTable: FunctionComponent<IProductTable> = ({
                     </th>
                   ))}
 
-                  <th scope="col" className="relative px-6 py-3">
-                    <span className="sr-only">Edit</span>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-center text-xs font-medium text-accent-0 uppercase tracking-wider"
+                  >
+                    <span className="px-6 py-3 sr-only text-accent-0">
+                      Options
+                    </span>
                   </th>
                 </tr>
               </thead>
 
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-accent-1 divide-y divide-accent-9">
                 {products.map((product: any, i) => (
                   <tr key={i}>
                     <ProductTableItem

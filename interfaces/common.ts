@@ -20,4 +20,5 @@ export interface IModalCart {
 export interface ISearchBar {
   className?: string;
   id?: string;
+  text: string;
 }

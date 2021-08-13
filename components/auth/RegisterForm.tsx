@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import firebase from '../../firebase/config';
 import { useTranslation } from 'react-i18next';
-import { useRef, useState } from 'react';
+import { FunctionComponent, useRef, useState } from 'react';
+import Swal from 'sweetalert2';
 
 interface IRegisterForm {
   email: string;
@@ -13,7 +14,7 @@ interface IRegisterForm {
   passwordTwo: string;
 }
 
-const RegisterForm = () => {
+const RegisterForm: FunctionComponent = (): JSX.Element => {
   const {
     register,
     formState: { errors },
@@ -24,7 +25,6 @@ const RegisterForm = () => {
   const { i18n, t } = useTranslation();
   const [isRegistered, setIsRegistered] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [success, setSuccess] = useState<boolean>(false);
   const passwordOne = useRef({});
   passwordOne.current = watch('passwordOne', '');
 
@@ -38,26 +38,22 @@ const RegisterForm = () => {
           .auth()
           .createUserWithEmailAndPassword(data.email, data.passwordTwo)
           .then(() => {
-            console.log('q');
-
+            Swal.fire(t('success'), t('registered'), 'success');
             e.target.reset();
             reset();
-            setSuccess(true);
+            setIsLoading(false);
           })
           .catch((err) => {
             if (err.toJSON().code === 'auth/email-already-in-use') {
               setIsRegistered(true);
-              // Ya esta registrado
+              Swal.fire(t('_error'), t('error_register'), 'error');
+              setIsLoading(false);
             }
           });
       } catch (err) {
         console.warn(err);
+        setIsLoading(false);
       }
-      setIsLoading(false);
-      setTimeout(() => {
-        setIsRegistered(false);
-        setSuccess(false);
-      }, 3000);
     }
   };
 
@@ -123,12 +119,6 @@ const RegisterForm = () => {
         {errors.passwordTwo && (
           <div className="mt-2 text-xs text-red">
             {errors.passwordTwo.message}
-          </div>
-        )}
-
-        {isRegistered && (
-          <div className="mt-2 text-xs text-red">
-            Usuario ya ha sido registrado
           </div>
         )}
         <Button variant="slim" type="submit" loading={isLoading}>

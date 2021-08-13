@@ -9,12 +9,13 @@ import { ISearchBar } from '../../interfaces/common';
 const Searchbar: FunctionComponent<ISearchBar> = ({
   className,
   id = 'search',
+  text,
 }) => {
   const router = useRouter();
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
-    router.prefetch(`${i18n.language}/search`);
+    router.prefetch(`/${i18n.language}/search`);
   }, []);
 
   const handleKeyUp = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -25,7 +26,22 @@ const Searchbar: FunctionComponent<ISearchBar> = ({
 
       router.push(
         {
-          pathname: `${i18n.language}/search`,
+          pathname: `/${i18n.language}/search`,
+          query: q ? { q } : {},
+        },
+        undefined,
+        { shallow: true }
+      );
+    }
+  };
+
+  const handleClick = (e: any) => {
+    e.preventDefault();
+    const q = e.currentTarget.value;
+    if (q !== '') {
+      router.push(
+        {
+          pathname: `/${i18n.language}/search`,
           query: q ? { q } : {},
         },
         undefined,
@@ -37,18 +53,18 @@ const Searchbar: FunctionComponent<ISearchBar> = ({
   return useMemo(
     () => (
       <div className={cn(s.root, className)}>
-        <label className="hidden" htmlFor={id}>
-          Search
+        <label className="hidden" htmlFor={t('search')}>
+          {text}
         </label>
         <input
           id={id}
           className={s.input}
-          placeholder={t('search')}
+          placeholder={''}
           defaultValue={router.query.q}
           onKeyUp={handleKeyUp}
         />
-        <div className={s.iconContainer}>
-          <Search className={s.icon} />
+        <div className={cn(s.iconContainer)} onClick={handleClick}>
+          <Search className={cn(s.icon, 'cursor-pointer')} />
         </div>
       </div>
     ),

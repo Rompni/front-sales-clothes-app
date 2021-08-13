@@ -6,7 +6,7 @@ interface IFileContext {
 }
 export const FileContext = createContext<IFileContext>({
   myFile: null,
-  handleFile: (file: any) => ({}),
+  handleFile: (file: any) => console.warn(file),
 });
 
 const FileProvider: FunctionComponent = ({ children }): JSX.Element => {

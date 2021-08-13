@@ -16,22 +16,32 @@ const ProductPage = ({ t }: any): JSX.Element => {
   const [product, setProduct] = useState<Product | undefined>(undefined);
 
   useEffect(() => {
+    let mounted = true;
     getProductBySlug(slug)
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          setLoading(false);
-          setProduct(generateProduct(doc));
+          if (mounted) {
+            setLoading(false);
+            setProduct(generateProduct(doc));
+          }
         });
+
+        return () => (mounted = false);
       })
       .catch((e) => {
         setError(e);
+        setLoading(false);
       });
-  }, [product]);
+  }, []);
 
   return (
-    <Layout title={t('home')} footer={false}>
+    <Layout title={product?.name || t('product')} footer={false}>
       {error && <strong>Error getting documents: {error}</strong>}
-      {loading && <LoadingDots />}
+      {loading && (
+        <div className="text-center">
+          <LoadingDots />
+        </div>
+      )}
       {product && <ProductView {...product} />}
     </Layout>
   );

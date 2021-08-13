@@ -10,6 +10,8 @@ import Swal from 'sweetalert2';
 import { FileContext } from '../context/FileContext';
 import { IDocProduct, IRegisterProduct } from '../../interfaces/product';
 import { useTranslation } from 'react-i18next';
+import InputTextArea from '../ui/InputTextArea';
+import { useRouter } from 'next/router';
 
 const FormCreateProduct: FunctionComponent = (): JSX.Element => {
   const {
@@ -19,9 +21,9 @@ const FormCreateProduct: FunctionComponent = (): JSX.Element => {
     reset,
   } = useForm<IRegisterProduct>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [progress, setProgress] = useState<number>(0);
   const { myFile, handleFile } = useContext(FileContext);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const router = useRouter();
   const onSubmitCreateProduct = async (data: IRegisterProduct, e: any) => {
     e.preventDefault();
     setIsLoading(true);
@@ -31,10 +33,10 @@ const FormCreateProduct: FunctionComponent = (): JSX.Element => {
           const storageRef = firebase.storage().ref('/image/' + myFile.name);
           const task = storageRef.put(myFile);
           task.on('state_changed', (snapshot) => {
-            setProgress(
-              Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 100
-            );
+            const progress =
+              Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 
+            console.log(progress);
             if (snapshot.bytesTransferred === snapshot.totalBytes) {
               task.snapshot.ref.getDownloadURL().then((image) => {
                 if (image !== '') {
@@ -44,12 +46,10 @@ const FormCreateProduct: FunctionComponent = (): JSX.Element => {
                       Swal.fire(t('success'), t('product_create'), 'success');
                       setIsLoading(false);
                       handleFile('');
-                      setProgress(0);
                       reset();
                     })
                     .catch((err) => {
                       setIsLoading(false);
-                      setProgress(0);
                       handleFile('');
                       Swal.fire(t('error_create_product'), err.code, 'error');
                     });
@@ -59,7 +59,6 @@ const FormCreateProduct: FunctionComponent = (): JSX.Element => {
           });
         } else {
           setIsLoading(false);
-          setProgress(0);
           Swal.fire(t('error_image'), t('image_required'), 'error');
         }
       } catch (err) {
@@ -75,11 +74,11 @@ const FormCreateProduct: FunctionComponent = (): JSX.Element => {
       <form className="w-80 flex flex-col justify-between p-3 ">
         <div className="flex flex-col space-y-3">
           <Text variant="heading" className="text-center">
-            Create Product
+            {`${t('create')} ${t('product')}`}
           </Text>
           <Input
             type="text"
-            placeholder="Product Name"
+            placeholder={t('product_name')}
             ownRef={register('name', {
               required: t('product_name_required') + '',
             })}
@@ -88,8 +87,9 @@ const FormCreateProduct: FunctionComponent = (): JSX.Element => {
           {errors.name && (
             <div className="mt-2 text-xs text-red">{errors.name.message}</div>
           )}
-          <Input
-            type="text"
+          <InputTextArea
+            cols={0}
+            rows={4}
             placeholder={t('product_description')}
             ownRef={register('description', {
               required: t('product_description') + '',
@@ -137,27 +137,6 @@ const FormCreateProduct: FunctionComponent = (): JSX.Element => {
           <InputFileUpload />
         </div>
 
-        {/* <div className="relative pt-1">
-          <div className="flex mb-2 items-center justify-between">
-            <div>
-              <span
-                  className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-600 bg-blueGray-200">
-                Task in progress
-              </span>
-            </div>
-            <div className="text-right">
-              <span className="text-xs font-semibold inline-block text-blueGray-600">
-                {`${progress}%`}
-              </span>
-            </div>
-          </div>
-          <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-500">
-            <div
-                style={{width: `${progress}%`}}
-                className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-black"
-            />
-          </div>
-        </div> */}
         <Button
           variant="slim"
           type="submit"
@@ -166,6 +145,14 @@ const FormCreateProduct: FunctionComponent = (): JSX.Element => {
         >
           {t('create')}
         </Button>
+        <div
+          className="text-center cursor-pointer hover:text-accent-7"
+          onClick={() => {
+            router.push(`/${i18n.language}/admin/product`);
+          }}
+        >
+          <strong>{`${t('back')}`}</strong>
+        </div>
       </div>
     </>
   );

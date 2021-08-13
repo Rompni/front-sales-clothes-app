@@ -15,7 +15,7 @@ interface NavbarProps {
 } */
 
 const Navbar: FunctionComponent = (): JSX.Element => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   /* these are provisional
   const links: navLink[] = [
@@ -42,14 +42,14 @@ const Navbar: FunctionComponent = (): JSX.Element => {
             </nav> */}
           </div>
           <div className="justify-center flex-1 hidden lg:flex xl:flex 2xl:flex">
-            <Searchbar />
+            <Searchbar text={t('search')} />
           </div>
           <div className="flex items-center ml-3 mr-3 justify-end flex-1 space-x-8">
             <UserNav />
           </div>
         </div>
         <div className="flex pb-4 md:px-6 lg:hidden xl:hidden 2xl:hidden">
-          <Searchbar id="mobile-search" />
+          <Searchbar id="mobile-search" text={t('search')} />
         </div>
       </Container>
     </NavbarRoot>

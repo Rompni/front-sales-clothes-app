@@ -1,4 +1,4 @@
-import { FC, FunctionComponent, MutableRefObject, useRef } from 'react';
+import { FunctionComponent, MutableRefObject, useRef } from 'react';
 import { useUserAvatar } from '../../utils/hooks/useUserAvatar';
 
 interface Props {

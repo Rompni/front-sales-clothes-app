@@ -23,7 +23,7 @@ export const locales: ILocal[] = [
 const InitialContext: ContextProps = {
   locale: 'es',
   user: '',
-  setLocale: (lang) => ({}),
+  setLocale: (lang) => console.warn(lang),
 };
 
 export const UserContext = createContext<ContextProps>(InitialContext);

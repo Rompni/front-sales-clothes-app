@@ -5,3 +5,8 @@
 .root:focus {
   @apply outline-none shadow-outline-normal;
 }
+
+.myTextArea {
+  @apply max-w-sm max-h-28;
+  min-height: 7rem;
+}

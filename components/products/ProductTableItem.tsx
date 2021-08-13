@@ -1,19 +1,27 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useState } from 'react';
 import Image from 'next/Image';
 import { IProductTableItem } from '../../interfaces/product';
+import { useTranslation } from 'react-i18next';
+import Link from 'next/link';
+import Modal from '../ui/Modal';
+import FormEditProduct from './FormEditProduct';
 
 const ProductTableItem: FunctionComponent<IProductTableItem> = ({
   name,
   slug,
   price,
   image,
+  description,
   handleDelete,
+
   id,
 }): JSX.Element => {
   const placeholderImg = '/product-img-placeholder.svg';
+  const { t, i18n } = useTranslation();
+  const [displayModal, setDisplayModal] = useState(false);
   return (
     <>
-      <td className="px-6 py-4 whitespace-nowrap">
+      <td className="px-6 py-4 whitespace-nowrap ">
         <div className="flex items-center">
           <div className="flex-shrink-0 h-10 w-10">
             {image && (
@@ -28,7 +36,11 @@ const ProductTableItem: FunctionComponent<IProductTableItem> = ({
             )}
           </div>
           <div className="ml-4">
-            <div className="text-sm font-medium text-gray-900">{name}</div>
+            <Link href={`/${i18n.language}/product/${slug}`}>
+              <div className="text-sm font-medium text-gray-900 cursor-pointer hover:text-accent-5">
+                {name}
+              </div>
+            </Link>
           </div>
         </div>
       </td>
@@ -43,11 +55,26 @@ const ProductTableItem: FunctionComponent<IProductTableItem> = ({
       </td>
       <td className="px-3 py-4 whitespace-nowrap text-right text-sm font-medium">
         <span
-          className="text-accent-9 hover:text-accent-4 cursor-pointer"
+          className="px-3 text-red hover:text-accent-9 cursor-pointer"
           onClick={() => handleDelete(id || '')}
         >
-          Remove
+          {t('remove')}
         </span>
+        <span
+          className="px-3 text-blue hover:text-accent-9 cursor-pointer "
+          onClick={() => setDisplayModal(true)}
+        >
+          {t('edit')}
+        </span>
+        <>
+          {displayModal && (
+            <Modal onClose={() => setDisplayModal(false)}>
+              <FormEditProduct
+                {...{ name, description, slug, image, price, id }}
+              />
+            </Modal>
+          )}
+        </>
       </td>
     </>
   );

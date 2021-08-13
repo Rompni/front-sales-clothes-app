@@ -45,6 +45,7 @@
     "tailwindcss": "^2.2.4"
   },
   "devDependencies": {
+    "@types/babel__core": "^7.1.15",
     "@types/body-scroll-lock": "^2.6.2",
     "@types/cookie": "^0.4.1",
     "@types/lodash.random": "^3.2.6",

@@ -37,7 +37,8 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
 
     if (
       (userToken && authContext.value === AuthContextValue.WITHOUT) ||
-      (!userToken && authContext.value === AuthContextValue.WITH)
+      (!userToken && authContext.value === AuthContextValue.WITH) ||
+      authContext.value === AuthContextValue.NOACCESS
     ) {
       redirectTo(`/${lang}`, {
         res: appContext.ctx.res,
