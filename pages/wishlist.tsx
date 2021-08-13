@@ -5,7 +5,7 @@ import { AuthContextValue, MainInitialProps } from '../interfaces/auth';
 
 const Wishlist = ({ t }: any): JSX.Element => {
   return (
-    <Layout title={t('home')}>
+    <Layout title={t('wish_list')}>
       <div className={styles.container}>Wishlist page</div>
     </Layout>
   );

@@ -3,11 +3,12 @@ import { withTranslation } from '../../../i18n';
 import Layout from '../../../components/common/Layout';
 import { AuthContextValue, MainInitialProps } from '../../../interfaces/auth';
 import ProductListAdmin from '../../../components/products/ProductListAdmin';
+import cn from 'classnames';
 
-const IndexProductPage = ({ t }: any): JSX.Element => {
+const IndexProductPage = (): JSX.Element => {
   return (
-    <Layout title={t('create')}>
-      <div className={styles.container}>
+    <Layout title={`Admin`} footer={false}>
+      <div className={cn(styles.container)}>
         <ProductListAdmin />
       </div>
     </Layout>

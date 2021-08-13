@@ -25,7 +25,7 @@ const Footer: FunctionComponent<IFooter> = ({ className }): JSX.Element => {
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 border-b border-accent-2 py-10 text-primary bg-primary transition-colors duration-150">
           <div className="col-span-1 lg:col-span-2">
-            <Link href="/">
+            <Link href="/" passHref>
               <span className="flex flex-initial items-center font-bold md:mr-24">
                 <span className="rounded-full border border-accent-6 mr-2">
                   <Logo />

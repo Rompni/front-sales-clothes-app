@@ -9,6 +9,7 @@ import { ISearchBar } from '../../interfaces/common';
 const Searchbar: FunctionComponent<ISearchBar> = ({
   className,
   id = 'search',
+  text,
 }) => {
   const router = useRouter();
   const { t, i18n } = useTranslation();
@@ -37,13 +38,13 @@ const Searchbar: FunctionComponent<ISearchBar> = ({
   return useMemo(
     () => (
       <div className={cn(s.root, className)}>
-        <label className="hidden" htmlFor={id}>
-          Search
+        <label className="hidden" htmlFor={t('search')}>
+          {text}
         </label>
         <input
           id={id}
           className={s.input}
-          placeholder={t('search')}
+          placeholder={''}
           defaultValue={router.query.q}
           onKeyUp={handleKeyUp}
         />

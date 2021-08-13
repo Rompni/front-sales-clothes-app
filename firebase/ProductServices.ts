@@ -14,6 +14,12 @@ export const updateProduct = async (data: any, id: string): Promise<void> => {
   return await firebase.firestore().collection(db).doc(id).update(data);
 };
 
+export const getProducts = async (): Promise<
+  firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>
+> => {
+  return firebase.firestore().collection(db).get();
+};
+
 export const getProductBySlug = async (
   slug: string | string[] | undefined
 ): Promise<

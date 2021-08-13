@@ -4,7 +4,6 @@ import Link from 'next/link';
 import cn from 'classnames';
 import s from '../../styles/products/ProductCard.module.scss';
 import { IProductCardProps } from '../../interfaces/product';
-import { useTranslation } from 'react-i18next';
 
 const ProductCard: FunctionComponent<IProductCardProps> = ({
   variant,
@@ -15,7 +14,6 @@ const ProductCard: FunctionComponent<IProductCardProps> = ({
   ...props
 }): JSX.Element => {
   const { price } = product;
-  const { i18n } = useTranslation();
 
   const rootClassName = cn(
     s.root,

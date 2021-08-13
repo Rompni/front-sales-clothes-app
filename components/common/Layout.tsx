@@ -1,16 +1,9 @@
 import s from '../../styles/common/Layout.module.scss';
 import Navbar from './Navbar/Navbar';
-import LoadingDots from '../ui/LoadingDots';
 import { FunctionComponent } from 'react';
 import cn from 'classnames';
 import Footer from './Footer';
 import AppHead from './Head';
-
-const Loading = () => (
-  <div className="w-80 h-80 flex items-center text-center justify-center p-3">
-    <LoadingDots />
-  </div>
-);
 
 export type LayoutProps = {
   title?: string;
