@@ -15,7 +15,7 @@ const Searchbar: FunctionComponent<ISearchBar> = ({
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
-    router.prefetch(`${i18n.language}/search`);
+    router.prefetch(`/${i18n.language}/search`);
   }, []);
 
   const handleKeyUp = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -26,7 +26,22 @@ const Searchbar: FunctionComponent<ISearchBar> = ({
 
       router.push(
         {
-          pathname: `${i18n.language}/search`,
+          pathname: `/${i18n.language}/search`,
+          query: q ? { q } : {},
+        },
+        undefined,
+        { shallow: true }
+      );
+    }
+  };
+
+  const handleClick = (e: any) => {
+    e.preventDefault();
+    const q = e.currentTarget.value;
+    if (q !== '') {
+      router.push(
+        {
+          pathname: `/${i18n.language}/search`,
           query: q ? { q } : {},
         },
         undefined,
@@ -48,8 +63,8 @@ const Searchbar: FunctionComponent<ISearchBar> = ({
           defaultValue={router.query.q}
           onKeyUp={handleKeyUp}
         />
-        <div className={s.iconContainer}>
-          <Search className={s.icon} />
+        <div className={cn(s.iconContainer)} onClick={handleClick}>
+          <Search className={cn(s.icon, 'cursor-pointer')} />
         </div>
       </div>
     ),
