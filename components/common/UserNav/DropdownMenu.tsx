@@ -11,43 +11,22 @@ import {
   useRef,
   useState,
 } from 'react';
-import { useTheme } from 'next-themes';
 import ClickOutside from '../../../lib/click-outside/ClickOutside';
 import s from '../../../styles/common/DropdownMenu.module.scss';
-import Link from 'next/link';
 import cn from 'classnames';
-import { Moon, Sun } from 'react-feather';
 import firebase from '../../../firebase/config';
 import { logoutUser } from '../../../utils/auth';
 import { useTranslation } from 'react-i18next';
-import { Icon } from '../../../lib/RenderIcon';
 import Avatar from '../Avatar';
 
 interface DropdownMenuProps {
   open?: boolean;
 }
 
-const LINKS = [
-  {
-    name: 'My Orders',
-    href: '/orders',
-  },
-  {
-    name: 'My Profile',
-    href: '/profile',
-  },
-  {
-    name: 'My Cart',
-    href: '/cart',
-  },
-];
-
 const DropdownMenu: FunctionComponent<DropdownMenuProps> = () => {
-  const { pathname } = useRouter();
-  const { theme, setTheme } = useTheme();
   const [display, setDisplay] = useState(false);
   // const { closeSidebarIfPresent } = useUI();
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const router = useRouter();
   const ref = useRef() as MutableRefObject<HTMLUListElement>;
 
@@ -66,6 +45,10 @@ const DropdownMenu: FunctionComponent<DropdownMenuProps> = () => {
         console.log(e);
       }
     }
+  };
+
+  const admin = () => {
+    router.push(`/${i18n.language}/admin/product`);
   };
 
   useEffect(() => {
@@ -93,7 +76,7 @@ const DropdownMenu: FunctionComponent<DropdownMenuProps> = () => {
         </button>
         {display && (
           <ul className={s.dropdownMenu} ref={ref}>
-            {LINKS.map(({ name, href }) => (
+            {/* LINKS.map(({ name, href }) => (
               <li key={href}>
                 <div>
                   <Link href={href}>
@@ -111,25 +94,14 @@ const DropdownMenu: FunctionComponent<DropdownMenuProps> = () => {
                   </Link>
                 </div>
               </li>
-            ))}
+            )) */}
+
             <li>
               <span
                 className={cn(s.link, 'justify-between')}
-                onClick={() => {
-                  theme === 'dark' ? setTheme('light') : setTheme('dark');
-                  setDisplay(false);
-                }}
+                onClick={() => admin()}
               >
-                <div>
-                  Theme: <strong>{theme}</strong>{' '}
-                </div>
-                <div className="ml-3">
-                  {theme === 'dark' ? (
-                    <Moon width={20} height={20} />
-                  ) : (
-                    <Sun width="20" height={20} />
-                  )}
-                </div>
+                {t('admin')}
               </span>
             </li>
             <li>
@@ -137,7 +109,7 @@ const DropdownMenu: FunctionComponent<DropdownMenuProps> = () => {
                 className={cn(s.link, 'border-t border-accent-2 mt-4')}
                 onClick={() => logout()}
               >
-                Logout
+                {t('Logout')}
               </span>
             </li>
           </ul>

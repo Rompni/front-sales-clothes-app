@@ -7,7 +7,7 @@ import FileProvider from '../../../components/context/FileContext';
 
 const CreateProductPage = ({ t }: any): JSX.Element => {
   return (
-    <Layout title={t('create')}>
+    <Layout title={t('create')} footer={false}>
       <div className={styles.container}>
         <FileProvider>
           <FormCreateProduct />

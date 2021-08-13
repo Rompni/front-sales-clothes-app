@@ -9,7 +9,6 @@ import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
 import { IUserNav } from '../../../interfaces/common';
 import { useUserAuth } from '../../../utils/hooks/useUserAuth';
-import { useWindowSize } from '../../../utils/hooks/useWindowSize';
 import DropdownMenu from './DropdownMenu';
 import { Icon } from '../../../lib/RenderIcon';
 
@@ -18,7 +17,6 @@ const UserNav: FunctionComponent<IUserNav> = ({ className }): JSX.Element => {
   const router = useRouter();
   const { isAuth } = useUserAuth();
   const { i18n } = useTranslation();
-  const { width } = useWindowSize();
 
   const handleClick = (url: string) => {
     router.push(url);
@@ -37,7 +35,7 @@ const UserNav: FunctionComponent<IUserNav> = ({ className }): JSX.Element => {
             </div>
           </li>
           <li className={s.item}>
-            <Link href={`/${i18n.language}/wishlist`}>
+            <Link href={`/${i18n.language}/wishlist`} passHref>
               <span aria-label="Wishlist">
                 <Heart />
               </span>

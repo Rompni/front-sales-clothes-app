@@ -12,6 +12,7 @@ export interface ILoginData {
 export enum AuthContextValue {
   WITHOUT = 'withoutAuth',
   WITH = 'withAuth',
+  NOACCESS = 'noAccess',
 }
 
 export interface AuthContext {

@@ -5,7 +5,6 @@ class AppDocument extends Document {
     return (
       <Html>
         <Head />
-
         <body>
           <Main />
           <NextScript />

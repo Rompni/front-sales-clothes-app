@@ -1,6 +1,5 @@
 import s from '../../styles/products/InputFileUpload.module.scss';
 import { ChangeEvent, FunctionComponent, useContext, useState } from 'react';
-import { UseFormRegisterReturn } from 'react-hook-form';
 import cn from 'classnames';
 import Swal from 'sweetalert2';
 import LoadingDots from '../ui/LoadingDots';

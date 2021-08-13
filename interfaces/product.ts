@@ -58,6 +58,7 @@ export interface IProductTable {
 
 export interface IProductTableItem extends Product {
   handleDelete: (id: string) => void;
+  handleEdit: (id: string) => void;
 }
 
 export interface ProductTagProps {
@@ -68,6 +69,6 @@ export interface ProductTagProps {
 }
 
 export interface ProductSidebarProps {
-  product: Product;
+  description: string;
   className?: string;
 }

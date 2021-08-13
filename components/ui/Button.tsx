@@ -1,11 +1,5 @@
 import cn from 'classnames';
-import {
-  forwardRef,
-  ButtonHTMLAttributes,
-  JSXElementConstructor,
-  useRef,
-  FunctionComponent,
-} from 'react';
+import { forwardRef, useRef, FunctionComponent } from 'react';
 import mergeRefs from 'react-merge-refs';
 import s from '../../styles/ui/Button.module.scss';
 import LoadingDots from './LoadingDots';
