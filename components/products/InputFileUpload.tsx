@@ -74,6 +74,7 @@ const InputFileUpload: FunctionComponent<InputFileProps> = (
       <div className={s.customInputFile}>
         <input
           type="file"
+          id={props.id}
           onChange={handleUpload}
           accept=".jpg,.jpeg,.png"
           autoComplete="off"
@@ -91,7 +92,11 @@ const InputFileUpload: FunctionComponent<InputFileProps> = (
         {!isLoading && isCharged && isFile && <p>{isFile.name}</p>}
       </div>
       {isCharged && isFile && (
-        <XSquare className="cursor-pointer" onClick={handleRemove} />
+        <XSquare
+          id={'no-filed'}
+          className="cursor-pointer"
+          onClick={handleRemove}
+        />
       )}
     </>
   );

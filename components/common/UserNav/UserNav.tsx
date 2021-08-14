@@ -45,7 +45,7 @@ const UserNav: FunctionComponent<IUserNav> = ({ className }): JSX.Element => {
             <I18nWidget />
           </li>
 
-          <li className={s.item}>
+          <li className={s.item} id={'user-item'}>
             {isAuth ? (
               <DropdownMenu />
             ) : (

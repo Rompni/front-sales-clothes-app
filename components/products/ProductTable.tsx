@@ -55,7 +55,7 @@ const ProductTable: FunctionComponent<IProductTable> = ({
 
   return (
     <div className="flex flex-col mt-40">
-      <Button className="mb-2 mt-2" onClick={handleCreate}>
+      <Button id={'create'} className="mb-2 mt-2" onClick={handleCreate}>
         {`${t('create')} ${t('product')}`}{' '}
       </Button>
 

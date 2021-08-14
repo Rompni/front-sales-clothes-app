@@ -134,7 +134,7 @@ const FormCreateProduct: FunctionComponent = (): JSX.Element => {
       </form>
       <div className="w-80 flex flex-col justify-between p-3 space-y-3 ">
         <div className="flex flex-row justify-between items-center">
-          <InputFileUpload />
+          <InputFileUpload id={'file'} />
         </div>
 
         <Button

@@ -17,6 +17,7 @@ export interface IRegisterProduct {
 }
 
 export interface InputFileProps {
+  id?: string;
   className?: string;
   onChange?: (...args: any[]) => any;
   ownRef?: UseFormRegisterReturn;
