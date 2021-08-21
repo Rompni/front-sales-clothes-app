@@ -52,7 +52,7 @@ describe('Testing ', () => {
     await driver.sleep(time + 2000);
     driver.findElement(Webdriver.By.id('create')).click();
 
-    await driver.sleep(time);
+    await driver.sleep(time + 2000);
 
     const form = driver.findElement(Webdriver.By.css('form'));
     const name = form.findElement(Webdriver.By.css("input[name='name']"));

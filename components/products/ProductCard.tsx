@@ -1,4 +1,4 @@
-import Image from 'next/Image';
+import Image from 'next/image';
 import { FunctionComponent } from 'react';
 import Link from 'next/link';
 import cn from 'classnames';

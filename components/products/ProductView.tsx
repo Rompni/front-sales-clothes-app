@@ -7,7 +7,7 @@ import WishlistButton from '../common/WishlistButton';
 
 import { NextSeo } from 'next-seo';
 import { Product } from '../../interfaces/product';
-import Image from 'next/Image';
+import Image from 'next/image';
 import ProductSidebar from './ProductSidebar';
 
 import { useTranslation } from 'react-i18next';

@@ -1,5 +1,5 @@
 import { UseFormRegisterReturn } from 'react-hook-form';
-import { ImageProps } from 'next/Image';
+import { ImageProps } from 'next/image';
 
 export interface IDocProduct {
   name: string;

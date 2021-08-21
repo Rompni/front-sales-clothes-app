@@ -1,6 +1,6 @@
 import { FunctionComponent, Fragment, useContext, useState } from 'react';
 import { Popover, Transition } from '@headlessui/react';
-import Image from 'next/Image';
+import Image from 'next/image';
 import { locales, UserContext } from '../context/UserContext';
 import { useTranslation } from 'react-i18next';
 
